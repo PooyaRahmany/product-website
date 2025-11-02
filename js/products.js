@@ -33,27 +33,37 @@ function displayProducts(products) {
     }
 
     container.innerHTML = products.map(product => `
-        <div class="product-card">
+        <article class="product-card" role="listitem" itemscope itemtype="https://schema.org/Product">
             <div class="product-image-wrapper">
-                <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy" 
+                <img src="${product.image}" 
+                     alt="${product.name} - ${getCategoryName(product.category)} - قیمت ${formatPriceToman(product.price)}" 
+                     class="product-image" 
+                     loading="lazy"
+                     itemprop="image"
                      onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'400\\'%3E%3Crect width=\\'400\\' height=\\'400\\' fill=\\'%23f3f4f6\\'/%3E%3Ctext x=\\'50%25\\' y=\\'50%25\\' text-anchor=\\'middle\\' dy=\\'.3em\\' font-family=\\'Arial\\' font-size=\\'20\\' fill=\\'%239ca3af\\'%3E${encodeURIComponent(product.name)}%3C/text%3E%3C/svg%3E';">
             </div>
             <div class="product-info">
-                <p class="product-category">${getCategoryName(product.category)}</p>
-                <h3 class="product-title">${product.name}</h3>
-                <div class="product-rating">
-                    <span class="stars">${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5-Math.floor(product.rating))}</span>
+                <p class="product-category" itemprop="category">${getCategoryName(product.category)}</p>
+                <h3 class="product-title" itemprop="name">${product.name}</h3>
+                <div class="product-rating" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+                    <meta itemprop="ratingValue" content="${product.rating}">
+                    <meta itemprop="bestRating" content="5">
+                    <span class="stars" aria-label="امتیاز ${product.rating} از ۵">${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5-Math.floor(product.rating))}</span>
                     <span>${product.rating}</span>
                 </div>
-                <p class="product-price">${formatPriceToman(product.price)}</p>
-                <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
-                    <i class="fas fa-shopping-cart"></i> افزودن به سبد خرید
+                <p class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                    <meta itemprop="price" content="${product.price * 50000}">
+                    <meta itemprop="priceCurrency" content="IRR">
+                    ${formatPriceToman(product.price)}
+                </p>
+                <button class="add-to-cart-btn" onclick="addToCart(${product.id})" aria-label="افزودن ${product.name} به سبد خرید">
+                    <i class="fas fa-shopping-cart" aria-hidden="true"></i> افزودن به سبد خرید
                 </button>
-                <a href="product-detail.html?id=${product.id}" class="btn btn-outline" style="width: 100%; margin-top: 0.5rem; text-align: center; display: block;">
+                <a href="product-detail.html?id=${product.id}" class="btn btn-outline" style="width: 100%; margin-top: 0.5rem; text-align: center; display: block;" aria-label="مشاهده جزئیات ${product.name}">
                     مشاهده جزئیات
                 </a>
             </div>
-        </div>
+        </article>
     `).join('');
 }
 
