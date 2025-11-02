@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Secure checkout - Complete your purchase">
+    <title>Checkout - TechStore</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <i class="fas fa-microchip"></i>
+                    <span>TechStore</span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="index.html#categories">Categories</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="login.html" class="nav-icon"><i class="fas fa-user"></i></a>
+                    <a href="cart.html" class="nav-icon cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Checkout Page -->
+    <section class="checkout-page">
+        <div class="container">
+            <h1 style="margin-bottom: 2rem;">Checkout</h1>
+            
+            <div class="checkout-container">
+                <!-- Checkout Form -->
+                <div>
+                    <!-- Shipping Information -->
+                    <div class="checkout-section">
+                        <h2><i class="fas fa-shipping-fast"></i> Shipping Information</h2>
+                        <form id="checkoutForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>First Name *</label>
+                                    <input type="text" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Last Name *</label>
+                                    <input type="text" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input type="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Address *</label>
+                                <input type="text" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>City *</label>
+                                    <input type="text" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>State/Province *</label>
+                                    <input type="text" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Postal Code *</label>
+                                    <input type="text" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Country *</label>
+                                    <select required>
+                                        <option value="">Select Country</option>
+                                        <option value="us">United States</option>
+                                        <option value="ca">Canada</option>
+                                        <option value="uk">United Kingdom</option>
+                                        <option value="au">Australia</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="checkout-section">
+                        <h2><i class="fas fa-credit-card"></i> Payment Method</h2>
+                        <div class="payment-methods">
+                            <div class="payment-option" onclick="selectPayment('credit')">
+                                <input type="radio" name="payment" value="credit" id="creditCard" checked>
+                                <label for="creditCard" style="flex: 1; cursor: pointer;">
+                                    <i class="fas fa-credit-card" style="margin-right: 0.5rem;"></i>
+                                    Credit/Debit Card
+                                </label>
+                            </div>
+                            <div class="payment-option" onclick="selectPayment('paypal')">
+                                <input type="radio" name="payment" value="paypal" id="paypal">
+                                <label for="paypal" style="flex: 1; cursor: pointer;">
+                                    <i class="fab fa-paypal" style="margin-right: 0.5rem;"></i>
+                                    PayPal
+                                </label>
+                            </div>
+                            <div class="payment-option" onclick="selectPayment('apple')">
+                                <input type="radio" name="payment" value="apple" id="applePay">
+                                <label for="applePay" style="flex: 1; cursor: pointer;">
+                                    <i class="fab fa-apple-pay" style="margin-right: 0.5rem;"></i>
+                                    Apple Pay
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="creditCardForm" style="margin-top: 2rem;">
+                            <div class="form-group">
+                                <label>Card Number *</label>
+                                <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Expiry Date *</label>
+                                    <input type="text" placeholder="MM/YY" maxlength="5" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>CVV *</label>
+                                    <input type="text" placeholder="123" maxlength="3" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Cardholder Name *</label>
+                                <input type="text" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <aside>
+                    <div class="checkout-section">
+                        <h2>Order Summary</h2>
+                        <div id="checkoutItems">
+                            <!-- Order items will be loaded via JavaScript -->
+                        </div>
+                        <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="checkoutSubtotal">$0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Shipping</span>
+                                <span id="checkoutShipping">$0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Tax</span>
+                                <span id="checkoutTax">$0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <strong>Total</strong>
+                                <strong class="summary-total" id="checkoutTotal">$0.00</strong>
+                            </div>
+                        </div>
+                        <button type="submit" form="checkoutForm" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="processCheckout(event)">
+                            <i class="fas fa-lock"></i> Place Order
+                        </button>
+                        <div style="text-align: center; margin-top: 1rem; font-size: 0.875rem; color: var(--text-light);">
+                            <i class="fas fa-shield-alt"></i> Secure Checkout
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TechStore</h3>
+                    <p>Your trusted source for premium electronics and cutting-edge technology.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to get updates on new products and offers</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TechStore. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/checkout.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>
+
