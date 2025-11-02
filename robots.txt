@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /cart.html
+Disallow: /checkout.html
+Disallow: /login.html
+
+# Sitemap
+Sitemap: https://techstore.ir/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
